@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Button, Tab } from 'semantic-ui-react';
 
 import simpleModel from './models/simpleModel';
+import linearRegressionModel from './models/linearRegressionModel';
 
 import './App.css';
 import 'semantic-ui-css/semantic.min.css';
@@ -12,7 +13,8 @@ class App extends Component {
     super();
 
     this.state = {
-      simpleModelResult: -1
+      simpleModelResult: -1,
+      linearRegressionResult: -1
     };
   }
 
@@ -20,6 +22,13 @@ class App extends Component {
     const prediction = simpleModel(input);
     this.setState({
       simpleModelResult: prediction
+    });
+  }
+
+  async executeLinearRegression(input) {
+    const prediction = await linearRegressionModel(input);
+    this.setState({
+      linearRegressionResult: prediction
     });
   }
 
@@ -45,13 +54,30 @@ class App extends Component {
 
           </Tab.Pane>
         )
+      },
+      {
+        menuItem: 'Modelos y capas',
+        render: () => (
+          <Tab.Pane>
+            <div className="tab-content">
+              <p>
+                Ejemplo usando modelos y capas.
+              </p>
+              <hr />
+
+              <Button primary onClick={() => this.executeLinearRegression(20)}>Ejecutar regresión lineal</Button>
+              <div>
+                Result: {this.state.linearRegressionResult}
+              </div>
+            </div>
+          </Tab.Pane>
+        )
       }
     ];
 
     return (
       <div className="App">
         <header className="App-header">
-          {/* <img src={logo} className="App-logo" alt="logo" /> */}
           <h1 className="App-title">Hola TensorFlow JS!</h1>
         </header>
 
