@@ -18,7 +18,8 @@ export default async function linearRegressionModel(input) {
         optimizer: 'sgd'
     });
 
-    //Con estos datos, vamos a entrenar el modelo.
+    /*Vamos a entrenar el modelo.
+      Los datos corresponden a la función y = 2x - 1*/
     const trainingInput = tf.tensor2d([-1, 0, 1, 2, 3, 4], [6, 1]);
     const trainingOuput = tf.tensor2d([-3, -1, 1, 3, 5, 7], [6, 1]);
 
